@@ -1,0 +1,63 @@
+.card-div{
+    min-width: 16vw;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    margin: 10px;
+}
+
+.top-div{
+    border-bottom: 1px solid #d9d9d9;
+    background-color: #fec5c55d;
+}
+
+.top-div .edit{
+    text-align: right;
+    padding: 10px;
+}
+
+.top-div .edit button{
+    background-color: transparent;
+}
+
+.top-div .image{
+    padding: 20px;
+    text-align: center;
+}
+
+.bottom-div{
+    padding: 20px;
+}
+
+.bottom-div .name{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bottom-div .name p{
+    font-size: 16px;
+}
+
+.bottom-div .price{
+    font-size: 24px;
+    font-weight: 600;
+    text-align: right;
+}
+
+.button-div{
+    width: 100%;
+    text-align: center;
+}
+
+.button-div button{
+    margin: 10px 20px;
+    padding: 12px 65px;
+    border-radius: 4px;
+    color: white;
+    background-color: rgb(54, 54, 107);
+    font-weight: 600;
+}
+
+.button-div button:hover{
+    border-radius: 20px;
+}
