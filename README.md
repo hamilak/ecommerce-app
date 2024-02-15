@@ -23,8 +23,3 @@ This is a simple e-commerce web application built using Node.js, React.js, and M
 - **Frontend**: React.js, HTML, CSS
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
-
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
