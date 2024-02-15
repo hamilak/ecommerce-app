@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        email: {
+        userName: {
             type: String,
             required: true,
             unique: true,
@@ -19,10 +19,11 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        // cart: {
-        //     type: mongoose.Schema.Types.ObjectId,
-        //     ref: 'Cart'
-        // }
+        role: {
+            type: String,
+            default: "User",
+            required: true
+        }
     },
     {
         timestamps: true,
