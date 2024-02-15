@@ -23,6 +23,26 @@ exports.create = async (req, res) => {
         res.status(201).send(savedProduct)
     } catch (error) {
         console.log(error)
+        res.send(error)
+    }
+}
+
+// get all products
+exports.getAll = async (req, res) => {
+    try {
+        const allProducts = await Product.find({})
+        res.status(200).send(allProducts)
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+exports.getOneProduct = async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id)
+        res.status(200).send(product)
+    } catch (error) {
+        
     }
 }
 
@@ -44,7 +64,9 @@ exports.update = async (req, res) => {
 
         const updatedProduct = await product.save()
         res.send({ message: 'product deleted:', product: updatedProduct })
-    } catch (error) {}
+    } catch (error) {
+        res.send(error)
+    }
 }
 
 // delete product
@@ -68,5 +90,6 @@ const findProduct = async (id) => {
         return product
     } catch (error) {
         console.log(error)
+        res.send(error)
     }
 }
