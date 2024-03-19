@@ -1,5 +1,5 @@
-const User = require('../models/user')
-const bcrypt = require("bcrypt")
+const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 // create new user
 // exports.create = async (req, res) => {
@@ -29,43 +29,43 @@ const bcrypt = require("bcrypt")
 
 exports.getAll = async (req, res) => {
     try {
-        const allUsers = await User.find({})
-        res.status(200).send(allUsers)
+        const allUsers = await User.find({});
+        res.status(200).send(allUsers);
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};
 
 // update user
 exports.update = async (req, res) => {
     try {
-        const id = req.params.id
-        const user = await findUser(id)
+        const id = req.params.id;
+        const user = await findUser(id);
 
         if (req.body.firstName) {
-            product.firstName = req.body.firstName
+            product.firstName = req.body.firstName;
         }
         if (req.body.lastName) {
-            product.lastName = req.body.lastName
+            product.lastName = req.body.lastName;
         }
 
-        const updatedProduct = await product.save()
-        res.send({ message: 'product deleted:', product: updatedProduct })
+        const updatedProduct = await product.save();
+        res.send({ message: 'product deleted:', product: updatedProduct });
     } catch (error) {}
-}
+};
 // delete user
 exports.delete = async (req, res) => {
     try {
-        console.log(req)
-        const id = req.params.id
-        const user = await User.findById(id)
-        console.log(user)
+        console.log(req);
+        const id = req.params.id;
+        const user = await User.findById(id);
+        console.log(user);
         if (!user) {
-            res.status(404).send({ message: 'User does not exist' })
+            res.status(404).send({ message: 'User does not exist' });
         }
-        const deleteUser = await User.deleteOne(user)
-        res.send({ message: 'user deleted:', deleteUser })
+        const deleteUser = await User.deleteOne(user);
+        res.send({ message: 'user deleted:', deleteUser });
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
-}
+};

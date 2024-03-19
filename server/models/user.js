@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema(
     {
@@ -21,15 +21,15 @@ const UserSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            default: "User",
-            required: true
-        }
+            default: 'User',
+            required: true,
+        },
     },
     {
         timestamps: true,
     }
-)
+);
 
-const UserModel = mongoose.model('Users', UserSchema)
+const UserModel = mongoose.model('Users', UserSchema);
 
-module.exports = UserModel
+module.exports = UserModel;
