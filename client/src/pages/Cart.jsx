@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { api } from '../service/apiService'
 import { useParams } from 'react-router-dom'
 import { Panel } from 'rsuite'
+import BackButton from '../components/BackButton'
 
 const Cart = () => {
     const { userId } = useParams()
     const [allProducts, setAllProducts] = useState([])
+    const [addError, setAddError] = useState('')
     const [product, setProduct] = useState('')
 
     const getUserCart = async () => {
@@ -16,12 +18,36 @@ const Cart = () => {
         }
     }
 
+    const handleAddToCart = async (id) => {
+        try {
+            console.log(id)
+            const response = await api.post(`/add-to-cart/${userId}/${id}`)
+            if (response.status === 201) {
+                return true
+            }
+        } catch (error) {
+            setAddError('An error occured while adding')
+            console.log(error)
+        }
+        return false;
+    }
+
     useEffect(() => {
         getUserCart()
-    }, [])
+    }, []) 
 
-    const handleIncrease = (id) => {
-        console.log(id)
+    const handleIncrease = async (id) => {
+        const success = await handleAddToCart(id)
+        console.log(success)
+        if(success) {
+            const updatedProduct = allProducts.map(product => {
+                if(product.id === id) {
+                    return { ...product, quantity: product.quantity + 1 }
+                }
+                return product;
+            })
+            setAllProducts(updatedProduct)
+        }
     }
 
     const handleDecrease = (id) => {
@@ -31,7 +57,14 @@ const Cart = () => {
     return (
         <div style={mainDiv}>
             <div>
-                <h5>Cart</h5>
+                <BackButton />
+                <h5 style={{ textAlign: 'center' }}>Cart</h5>
+                {addError && (
+                    <div style={{ border: '0.5px solid red', borderRadius: '4px', padding: '6px', marginBottom: '12px' }}>
+                        <p style={{ color: 'red' }}>{addError}</p>
+                    </div>
+                )}
+                <br />
                 {allProducts.map((product, i) => (
                     <div key={i}>
                         <Panel bordered>

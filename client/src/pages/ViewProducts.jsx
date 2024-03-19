@@ -4,12 +4,14 @@ import CouponIcon from "@rsuite/icons/Coupon"
 import 'rsuite/dist/rsuite.min.css'
 import { useNavigate, useParams } from 'react-router-dom'
 import "../components/Card/style.css"
+import Navbar from '../components/Navbar/Navbar'
 
 const Coupon = ({ size }) => <CouponIcon style={{ fontSize: size, marginRight: 10 }} />;
 
 const ViewProducts = () => {
     const { userId } = useParams()
     const [allProducts, setAllProducts] = useState([])
+    const [cartList, setCartList] = useState([])
     const [error, setError] = useState('')
     const [addError, setAddError] = useState('')
     const navigate = useNavigate()
@@ -32,7 +34,6 @@ const ViewProducts = () => {
     }, [])
 
     const handleAddToCart = async (id) => {
-        console.log(userId)
         try {
             const response = await api.post(`/add-to-cart/${userId}/${id}`)
             if (response.status === 201) {
@@ -44,12 +45,29 @@ const ViewProducts = () => {
         }
     }
 
+    const getCartList = async () => {
+        try {
+            const response = await api.get(`/get-cart/${userId}`)
+            if (response.status == 200) {
+                console.log(response.data)
+                setCartList(response.data)
+            }
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getCartList()
+    }, [])
+
     const goToCart = () => {
         navigate(`/cart/${userId}`)
     }
 
     return (
         <>
+        <Navbar />
             <div style={mainDiv}>
                 <div>
                     <div>
@@ -65,12 +83,14 @@ const ViewProducts = () => {
                     <div style={subDiv}>
                         <h5>Available Products</h5>
                         <div style={{ display: 'flex', alignItems: 'flex-start' }}>
-                        <button onClick={goToCart} style={{ backgroundColor: 'transparent' }}>
-                        <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/24/4D4D4D/shopping-cart--v1.png" alt="shopping-cart--v1"/>
-                        </button>
-                        <div>
-                            <img width="8" height="8" src="https://img.icons8.com/ios-glyphs/8/FA5252/100-percents.png" alt="100-percents"/>
-                        </div>
+                            <button onClick={goToCart} style={{ backgroundColor: 'transparent' }}>
+                                <img width="24" height="24" src="https://img.icons8.com/fluency-systems-regular/24/4D4D4D/shopping-cart--v1.png" alt="shopping-cart--v1" />
+                            </button>
+                            {cartList?.length > 0 && (
+                                <div>
+                                    <img width="8" height="8" src="https://img.icons8.com/ios-glyphs/8/FA5252/100-percents.png" alt="100-percents" />
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
