@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { api } from '../service/apiService'
 import { ViewProductsCard } from '../components/Card/Card'
+import { Button, Modal } from 'rsuite'
 
 const Home = () => {
 
     const [allProducts, setAllProducts] = useState([])
     const [error, setError] = useState('')
+    const [open, setOpen] = useState(false)
     const [addError, setAddError] = useState('')
+    const navigate = useNavigate()
 
     const getAllProducts = async () => {
         try {
@@ -26,39 +29,14 @@ const Home = () => {
         getAllProducts()
     }, [])
 
-    const handleAddToCart = async () => {
-        try {
-            const response = await api.post(`/add-to-cart/${id}`)
-            if (response.status === 201) {
-                setOpen(false)
-                getAllProducts()
-                setProductValues({
-                    productName: '',
-                    type: '',
-                    price: 0,
-                    quantity: 0
-                });
-            }
-        } catch (error) {
-            console.log(error)
-        }
+    const handleOpen = () => {
+        setOpen(true)
     }
 
     return (
         <div>
             <div style={mainDiv}>
-                <div>
-                    <h5 style={{ textAlign: 'center' }}>Welcome</h5>
-                    <Link to={'/register'}>
-                        <button style={button}>
-                            Click here to register
-                        </button>
-                    </Link>
-                    <Link to={'/login'}>
-                        <button style={button}>
-                            Click here to login
-                        </button>
-                    </Link>
+                <div style={{ margin: '50px auto', padding: '50px', textAlign: 'center' }}>
                     <div>
                         {error && (
                             <p>{error}</p>
@@ -69,13 +47,27 @@ const Home = () => {
                             <p>{addError}</p>
                         )}
                     </div>
-                    <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <div>
                         <h5>Available Products</h5>
+                        </div>
+                        <div>
+                        <Link to={'/register'}>
+                        <button style={button}>
+                            Register
+                        </button>
+                    </Link>
+                    <Link to={'/login'}>
+                        <button style={button}>
+                            Login
+                        </button>
+                    </Link>
+                        </div>
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
                         {allProducts.map((product, i) => (
                             <div key={i}>
-                                <ViewProductsCard price={product.price} productName={product.productName} type={product.type} handleAddToCart={handleAddToCart(product._id)} />
+                                <ViewProductsCard price={product.price} productName={product.productName} type={product.type} handleAddToCart={handleOpen} />
                             </div>
                         ))}
                         {allProducts.length === 0 && (
@@ -84,6 +76,19 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+
+            <Modal open={open} backdrop={true} onClose={() => setOpen(false)}>
+                <Modal.Title>
+                    Login
+                </Modal.Title>
+                <Modal.Body>
+                    Please login or sign up to add product to cart
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button onClick={() => navigate('/login')}>Login</Button>
+                    <Button onClick={() => navigate('/register')}>Register</Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     )
 }
@@ -100,7 +105,8 @@ const button = {
     padding: '10px',
     borderRadius: '4px',
     cursor: 'pointer',
-    marginRight: '10px'
+    marginRight: '10px',
+    color: 'black'
 }
 
 export default Home

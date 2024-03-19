@@ -1,0 +1,42 @@
+.nav-div{
+    background-color: rgb(223, 223, 223);
+    padding: 0 30px;
+}
+
+.subnav-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+}
+
+.nav-logo {
+    color: black;
+    font-weight: 700;
+}
+
+.menu-div {
+    display: flex;
+    align-items: center;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+.item a{
+    color: black;
+    font-weight: 700;
+    font-size: 12px;
+    text-decoration: none;
+    cursor: pointer;
+}

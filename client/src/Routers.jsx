@@ -6,6 +6,7 @@ import UserList from './pages/UserList'
 import ViewProducts from './pages/ViewProducts'
 import SignUp from './pages/SignUp'
 import Cart from './pages/Cart'
+import Login from './pages/Login'
 
 const Routers = () => {
   return (
@@ -13,7 +14,7 @@ const Routers = () => {
         <Routes>
             <Route path='/' element={<Home />}></Route>
             <Route path='/register' element={<SignUp />}></Route>
-            <Route path='/login' element={<Home />}></Route>
+            <Route path='/login' element={<Login />}></Route>
             <Route path='/view-all-products' element={<ProductList />}></Route>
             <Route path='/view-products/:userId' element={<ViewProducts />}></Route>
             <Route path='/user-list' element={<UserList />}></Route>

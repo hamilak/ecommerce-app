@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { Form, useNavigate } from 'react-router-dom';
-import { Button, Input, InputGroup, SelectPicker } from 'rsuite';
+import { useNavigate } from 'react-router-dom';
+import { Input, InputGroup, SelectPicker } from 'rsuite';
 import FormControlLabel from 'rsuite/esm/FormControlLabel';
 import { api } from '../service/apiService';
 
@@ -37,7 +37,7 @@ const SignUp = () => {
         const response = await api.post('register', formValues)
         if(response.status === 201){
             const userId = response.data._id
-            navigate(`/view-products/${userId}`)
+            navigate(`/login`)
         }
     }
 
