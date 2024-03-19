@@ -16,7 +16,7 @@ This is a simple e-commerce web application built using Node.js, React.js, and M
 2. Navigate to the `client` directory and run `npm install` to install frontend dependencies.
 3. Navigate to the `server` directory and run `npm install` to install backend dependencies.
 4. Set up MongoDB database configurations in the `server/database` directory.
-5. Start the frontend and backend servers by running `npm start` in their respective directories.
+5. Start the frontend and backend servers by running `npm run dev` in their respective directories.
 
 ## Technologies Used
 
